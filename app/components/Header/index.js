@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 
 import A from './A';
 import Img from './Img';
@@ -12,8 +12,9 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
   render() {
     return (
       <div>
-        <NavBar>
-        </NavBar>
+        <HeaderLink to="/">
+          <h1>furagaのプロダクト置き場</h1>
+        </HeaderLink>
       </div>
     );
   }

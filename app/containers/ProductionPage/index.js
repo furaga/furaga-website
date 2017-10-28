@@ -24,11 +24,21 @@ import styled from 'styled-components';
 
 const productionsInfo = [
   {
+    title: "Inspector2D",
+    language: "Visual C# 2013",
+    date: "2014年1月14日",
+    repository: "https://github.com/furaga/Inspector2D",
+    image: "https://imgur.com/JEMuWLI.png",
+    video: "",
+    download: "",
+    description: <div>デバッグ実行時にBitmapやPoint型のリストなどを二次元キャンバス上に可視化するVisual Studio拡張機能．イメージ的にはクイックウォッチの二次元画像版．</div>
+  }, 
+  {
     title: "MethodRerunner",
     language: "Visual C# 2013",
     date: "2014年12月上旬",
     repository: "https://github.com/furaga/MethodRerunner",
-    image: "https://imgur.com/JEMuWLI.png",
+    image: "",
     video: "https://www.youtube.com/embed/BGdnBHPWdS8",
     download: "",
     description: <div>実行時に関数の引数を保存して、実行後に復元して単体テストなどに利用できるVisual Studio拡張機能．<br/>
