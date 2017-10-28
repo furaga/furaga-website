@@ -88,8 +88,8 @@ class Item extends React.Component { // eslint-disable-line react/prefer-statele
                             </tr>
                         </table>
                         <a href={info.repository}>github</a>
-                        &nbsp;&nbsp;
-                        <a href={info.download}>download</a>
+                        {/* &nbsp;&nbsp;
+                        <a href={info.download}>download</a> */}
                     </ItemHighlight>
                     <ItemDescription>
                         {info.description}
