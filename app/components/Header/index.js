@@ -6,7 +6,6 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     return (
       <div>
         <HeaderLink to="/">
-          <h1>furagaのプロダクト置き場</h1>
         </HeaderLink>
       </div>
     );

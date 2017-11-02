@@ -22,6 +22,10 @@ import messages from './messages';
 import Item from './Item';
 import styled from 'styled-components';
 
+const H1 = styled.h1`
+color: #41ADDD;
+`;
+
 const productionsInfo = [
   {
     title: "Inspector2D",
@@ -186,6 +190,8 @@ export class ProductionPage extends React.Component { // eslint-disable-line rea
           <title>Productions</title>
           <meta name="description" content="Description of ProductionPage"/>
         </Helmet>
+
+        <H1>furagaのプロダクト置き場</H1>
 
         <ItemList>
           {productionsInfo.map((info) => <Item info={info}/>)}

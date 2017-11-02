@@ -11,6 +11,7 @@ import {Helmet} from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
 import {createStructuredSelector} from 'reselect';
 import {compose} from 'redux';
+import ContentsListItem from '../../components/ContentsListItem';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,23 +22,15 @@ import messages from './messages';
 
 import styled from 'styled-components';
 
-const Img = styled.img `
-width:160px;
-height:120px;
-object-fit: contain;
-float:left;
-margin-top:1.5rem
-`
+const ContentsList = styled.div `
+display:flex;
+flex-flow: row wrap;
+align-items: flex-start;
+`;
 
-const ItemDiv = styled.div `
-  margin-bottom:2rem;
-  width:600px;
-  height:150px;
-  border-style:solid;
-  border-color:#41ADDD #888 #888 #888;
-  border-width:2px 1px 1px 1px;
-  clear:both;
-`
+const H1 = styled.h1`
+color: #41ADDD;
+`;
 
 function isClientSide() {
   return (typeof exports === 'undefined')
@@ -50,6 +43,7 @@ async function getItems() {
   
   return json
 }
+
 
 export class SearchPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -71,14 +65,12 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
           <meta name="description" content="Description of SearchPage"/>
         </Helmet>
 
-        {this.state.items.map((item, idx) => {
-          return <ItemDiv key={"item-" + idx}>
-            <Img src={item.thumbnail_url}/><br/>
-            &nbsp;<a href={item.url}>{item.title}</a><br/>
-            &nbsp;{item.date}<br/>
-            &nbsp;{item.official_site}
-          </ItemDiv>;
-        })}
+        <H1>アニメ配信情報</H1>
+
+        <ContentsList>
+          {this.state.items.map(item => <ContentsListItem item={item}/>)}
+        </ContentsList>
+
 
       </div>
     );
