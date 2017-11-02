@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import ProductionPage from 'containers/ProductionPage/Loadable';
+import SearchPage from 'containers/SearchPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -35,7 +36,8 @@ export default function App() {
       </Helmet>
       <Header />
       <Switch>
-        <Route exact path="/" component={ProductionPage} />
+      <Route exact path="/" component={ProductionPage} />
+        <Route exact path="/search" component={SearchPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
