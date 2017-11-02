@@ -16,7 +16,7 @@ def scrape_niconico_anime(path, datas)
             value = input.attribute('value').value
             data[name] = value
         end
-        data["video_url"] = "http://www.nicovideo.jp/watch/" + li.attribute('id').value.split('_')[2]
+        data["url"] = "http://www.nicovideo.jp/watch/" + li.attribute('id').value.split('_')[2]
         data['official_site'] = "ニコニコ動画"
         if data.key?('title') then
             datas.push(data)
@@ -34,12 +34,12 @@ def scrape_prime_anime(path, datas)
         data = {}
         div.css('.s-access-detail-page').each do |a|
             data['title'] = a.attribute('title').value
-            data['video_url'] = a.attribute('href').value
+            data['url'] = a.attribute('href').value
         end
         div.css('img').each do |img|
-            data['banner_url'] = img.attribute('src').value
+            data['thumbnail_url'] = img.attribute('src').value
         end
-        data['start_time'] = ""
+        data['date'] = ""
         data['official_site'] = "Amazon Prime Video"
         if data.key?('title') then
             datas.push(data)
@@ -59,7 +59,7 @@ def scrape_syosetu(path, datas)
             data['title'] = a.inner_html.strip
         end
         tbl.css('.info2 p span a').each do |a|
-            data['video_url'] = a.attribute('href').value
+            data['url'] = a.attribute('href').value
             data['title'] = data['title'] + " " + a.inner_html.strip
         end
 
@@ -68,7 +68,7 @@ def scrape_syosetu(path, datas)
             starts = text.index('更新日')
             ends = text.index('<span', starts)
             if starts >= 0 && ends > starts then
-                data['start_time'] = p.inner_html[starts, ends - starts].strip
+                data['date'] = p.inner_html[starts, ends - starts].strip
                 break
             end
         end
