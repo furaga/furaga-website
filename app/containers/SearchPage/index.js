@@ -44,7 +44,7 @@ function isClientSide() {
 }
 
 async function getItems() {
-  const res = await fetch('http://localhost:3000/api/news')
+  const res = await fetch('/api/news')
   const json = res.json()
   console.log(JSON.stringify(json, null, 4))
   
