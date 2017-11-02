@@ -18,6 +18,7 @@ def scrape_niconico_anime(path, datas)
         end
         data["url"] = "http://www.nicovideo.jp/watch/" + li.attribute('id').value.split('_')[2]
         data['official_site'] = "ニコニコ動画"
+        data['date'] = data['start_time'] 
         if data.key?('title') then
             datas.push(data)
         end 
