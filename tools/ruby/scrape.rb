@@ -89,8 +89,8 @@ end
 
 datas = []
 if checkArgv('--video') then
-    scrape_niconico_anime("./data/html/niconico/niconico_anime.html", datas)
     scrape_prime_anime("./data/html/amazon/prime_video/prime_anime.html", datas)
+    scrape_niconico_anime("./data/html/niconico/niconico_anime.html", datas)
 end
 
 if checkArgv('--books') then
