@@ -36,8 +36,8 @@ export default function App() {
       </Helmet>
       <Header />
       <Switch>
-      <Route exact path="/" component={ProductionPage} />
-        <Route exact path="/search" component={SearchPage} />
+        <Route exact path="/" component={ProductionPage} />
+        <Route path="/search/:category" component={SearchPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />

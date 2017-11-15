@@ -36,11 +36,10 @@ function isClientSide() {
   return (typeof exports === 'undefined')
 }
 
-async function getItems() {
-  const res = await fetch('/api/news')
+async function getItems(category) {
+  const res = await fetch('/api/news?category=' + category)
   const json = res.json()
   console.log(JSON.stringify(json, null, 4))
-  
   return json
 }
 
@@ -53,11 +52,14 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
   }
 
   async componentDidMount() {
-    const items = await getItems();
+    const {category} = this.props.match.params
+    console.log(this.props)
+    const items = await getItems(category);
     this.setState({items : items})
   }
 
   render() {
+    const {category} = this.props.match.params
     return (
       <div>
         <Helmet>
@@ -68,7 +70,7 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
         <H1>アニメ配信情報</H1>
 
         <ContentsList>
-          {this.state.items.map(item => <ContentsListItem item={item}/>)}
+          {this.state.items.map(item => <ContentsListItem category={category} item={item} />)}
         </ContentsList>
 
 
