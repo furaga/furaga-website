@@ -1,6 +1,18 @@
 require 'open-uri'
 require 'nokogiri'
 require "json"
+require 'securerandom'
+require "fileutils"
+
+def download(url, savepath)
+  dirname = File.dirname(savepath)
+  FileUtils.mkdir_p(dirname) unless FileTest.exist?(dirname)
+  open(savepath, 'wb') do |output|
+    open(url) do |data|
+      output.write(data.read)
+    end
+  end
+end
 
 def scrape_niconico_anime(path, datas)
     charset = 'utf-8'
@@ -40,7 +52,7 @@ def scrape_prime_anime(path, datas)
             data['url'] = a.attribute('href').value
         end
         div.css('img').each do |img|
-            data['thumbnail_url'] = img.attribute('src').value
+            data['thumbnail_url'] = "/img/"
         end
         data['date'] = ""
         data['official_site'] = "Amazon Prime Video"
@@ -96,7 +108,9 @@ def scrape_comic_walker(path, datas)
         data["title"] = a.css('h2 span')[0].inner_html.strip
         img = a.css('.pic img')[0]
         if img then
-            data["thumbnail_url"] = img.attribute("src").value
+            data["thumbnail_url_raw"] = img.attribute("src").value
+            data["thumbnail_url"] = "/img/" + SecureRandom.hex(8) + ".png"
+            download(data["thumbnail_url_raw"],  "./data" + data["thumbnail_url"])
         end
         data['official_site'] = "Comic Walker"
         if data.key?('title') then

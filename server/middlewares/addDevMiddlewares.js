@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const express = require('express');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const apiNews = require('../api/api_news');
@@ -21,6 +22,10 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   app.use(webpackHotMiddleware(compiler));
 
   app.use(apiNews.middleware());
+
+  const publicPath = '/';
+  const outputPath = path.resolve(process.cwd(), 'build');
+  app.use(publicPath, express.static(outputPath));
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead

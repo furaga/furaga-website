@@ -10,6 +10,11 @@ exports.middleware = function () {
       const papers = JSON.parse(json);
       items = items.concat(papers)
     }
+    else if (category.startsWith('comic')) {
+      const json = fs.readFileSync('./datas/items-comic.json', "utf-8");
+      const papers = JSON.parse(json);
+      items = items.concat(papers)
+    }
     else {
       const json = fs.readFileSync('./datas/items.json', "utf-8");
       const animes = JSON.parse(json);

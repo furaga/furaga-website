@@ -23,9 +23,7 @@ end
 
 def save_html(content, filepath)
     dirname = File.dirname(filepath)
-    unless File.directory?(dirname)
-        FileUtils.mkdir_p(dirname)
-    end
+    FileUtils.mkdir_p(dirname) unless FileTest.exist?(dirname)
     File.open(filepath, "w") do |f|
         f.puts(content)
         puts "saved: " + filepath
