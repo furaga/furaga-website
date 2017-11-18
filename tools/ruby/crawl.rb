@@ -28,8 +28,8 @@ def save_html(content, filepath)
     end
     File.open(filepath, "w") do |f|
         f.puts(content)
+        puts "saved: " + filepath
     end
-    puts "saved: " + filepath
 end
 
 def download(url, savepath)
@@ -57,4 +57,12 @@ if checkArgv('--video') then
 
 #    url  = 'https://www.amazon.co.jp/s/ref=atv_?_encoding=UTF8&bbn=2351650051&field-entity_type=4174099051&field-ways_to_watch=3746330051&node=2351649051%2C%212351650051%2C2478407051&pf_rd_i=home&pf_rd_m=AN1VRQENFRJN5&pf_rd_p=469882449&pf_rd_r=81EJ2Z8X5T23ERNAVVYZ&pf_rd_s=center-13&pf_rd_t=12401&search-alias=instant-video&sort=-prime_video_start_date'
 #    download(url, "./data/html/amazon/prime_video/prime_anime.html")
+
+    url  = 'https://www.youtube.com/playlist?list=PLcpNwSdDWNryc-BZBQjKI0jPIIPfcob5U'
+    download(url, "./data/html/youtube/lovelive-sunshine2.html")
+end
+
+if checkArgv('--comic') then
+    url  = 'https://comic-walker.com/contents/list/'
+    download(url, "./data/html/comic-walker/contents-list.html")
 end

@@ -22,6 +22,8 @@ def scrape_niconico_anime(path, datas)
         if data.key?('title') then
             datas.push(data)
         end 
+
+        puts data
     end
 end
 
@@ -83,6 +85,49 @@ def scrape_syosetu(path, datas)
     end
 end
 
+def scrape_comic_walker(path, datas)
+    charset = 'utf-8'
+    html = File.open(path) do |f| f.read end
+    doc = Nokogiri::HTML.parse(html, nil, charset)
+    aTags = doc.css('.tileList a')
+    aTags.each do |a|
+        data = {}
+        data["url"] = "https://comic-walker.com" + a.attribute("href").value
+        data["title"] = a.css('h2 span')[0].inner_html.strip
+        img = a.css('.pic img')[0]
+        if img then
+            data["thumbnail_url"] = img.attribute("src").value
+        end
+        data['official_site'] = "Comic Walker"
+        if data.key?('title') then
+            datas.push(data)
+        end 
+    end
+
+end
+
+def scrape_youtube_playlist(path, datas)
+    charset = 'utf-8'
+    html = File.open(path) do |f| f.read end
+    doc = Nokogiri::HTML.parse(html, nil, charset)
+
+    trs = doc.css('.pl-video.yt-uix-tile')
+    trs.each do |tr|
+        data = {}
+        data["url"] = "https://www.youtube.com/watch?v=" + tr.attribute("data-video-id").value
+        data["title"] = tr.attribute("data-title").value
+
+        img = tr.css('img')[0]
+        if img then
+            data["thumbnail_url"] = img.attribute("data-thumb").value
+        end
+        if data.key?('title') then
+            datas.push(data)
+        end 
+    end
+
+end
+
 def checkArgv(flg)
     return ARGV.include?('--all') || ARGV.include?(flg)
 end
@@ -90,7 +135,14 @@ end
 datas = []
 if checkArgv('--video') then
 #    scrape_prime_anime("./data/html/amazon/prime_video/prime_anime.html", datas)
-    scrape_niconico_anime("./data/html/niconico/niconico_anime.html", datas)
+
+
+#  scrape_niconico_anime("./data/html/niconico/niconico_anime.html", datas)
+    scrape_youtube_playlist("./data/html/youtube/lovelive-sunshine2.html", datas)
+end
+
+if checkArgv('--comic') then
+    scrape_comic_walker("./data/html/comic-walker/contents-list.html", datas)
 end
 
 if checkArgv('--books') then
