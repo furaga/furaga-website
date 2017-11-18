@@ -10,6 +10,7 @@ def download(url, savepath)
   open(savepath, 'wb') do |output|
     open(url) do |data|
       output.write(data.read)
+      puts "saved: " + savepath
     end
   end
 end
