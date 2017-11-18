@@ -72,10 +72,10 @@ class ContentsListItem extends React.Component { // eslint-disable-line react/pr
   render() {
     const { item, category } = this.props;
     if (!item) {
-      return null
+      return <div />
     }
 
-    if (category.startsWith("SIGGRAPH")) {
+    if (category && category.startsWith("SIGGRAPH")) {
       return this.renderPaper(item)
     } else {
       return this.renderVideo(item)
@@ -95,7 +95,7 @@ class ContentsListItem extends React.Component { // eslint-disable-line react/pr
             <ItemTitle>{item.title}</ItemTitle>
           </a>
           <ItemDescription>
-            {item.date}
+            {item.date ? item.date : ""}
             {item.fee ? "    " + item.fee : ""}
           </ItemDescription>
           <ItemHighlight>

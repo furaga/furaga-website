@@ -38,6 +38,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={ProductionPage} />
         <Route path="/search/:category" component={SearchPage} />
+        <Route path="/search" component={SearchPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />

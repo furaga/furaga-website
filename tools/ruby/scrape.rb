@@ -14,6 +14,12 @@ def download(url, savepath)
   end
 end
 
+def downloadAsPublicImage(url)
+    publicImageURL = "/img/" + SecureRandom.hex(8) + ".png"
+    download(url,  "./data" + publicImageURL)
+    return publicImageURL
+end
+
 def scrape_niconico_anime(path, datas)
     charset = 'utf-8'
     html = File.open(path) do |f| f.read end
@@ -26,36 +32,17 @@ def scrape_niconico_anime(path, datas)
         inputs.each do |input|
             name = input.attribute('name').value
             value = input.attribute('value').value
-            data[name] = value
+            if name == "thumbnail_url" then
+                data["thumbnail_url_raw"] = value
+                newURL = downloadAsPublicImage(data["thumbnail_url_raw"])
+                data["thumbnail_url"] = newURL
+            else
+                data[name] = value
+            end
         end
         data["url"] = "http://www.nicovideo.jp/watch/" + li.attribute('id').value.split('_')[2]
         data['official_site'] = "ニコニコ動画"
         data['date'] = data['start_time'] 
-        if data.key?('title') then
-            datas.push(data)
-        end 
-
-        puts data
-    end
-end
-
-def scrape_prime_anime(path, datas)
-    charset = 'utf-8'
-    html = File.open(path) do |f| f.read end
-    doc = Nokogiri::HTML.parse(html, nil, charset)
-
-    divs = doc.css('li .a-fixed-left-grid')
-    divs.each do |div|
-        data = {}
-        div.css('.s-access-detail-page').each do |a|
-            data['title'] = a.attribute('title').value
-            data['url'] = a.attribute('href').value
-        end
-        div.css('img').each do |img|
-            data['thumbnail_url'] = "/img/"
-        end
-        data['date'] = ""
-        data['official_site'] = "Amazon Prime Video"
         if data.key?('title') then
             datas.push(data)
         end 
@@ -109,8 +96,8 @@ def scrape_comic_walker(path, datas)
         img = a.css('.pic img')[0]
         if img then
             data["thumbnail_url_raw"] = img.attribute("src").value
-            data["thumbnail_url"] = "/img/" + SecureRandom.hex(8) + ".png"
-            download(data["thumbnail_url_raw"],  "./data" + data["thumbnail_url"])
+            newURL = downloadAsPublicImage(data["thumbnail_url_raw"])
+            data["thumbnail_url"] = newURL
         end
         data['official_site'] = "Comic Walker"
         if data.key?('title') then
@@ -148,7 +135,6 @@ end
 
 datas = []
 if checkArgv('--video') then
-#    scrape_prime_anime("./data/html/amazon/prime_video/prime_anime.html", datas)
   scrape_niconico_anime("./data/html/niconico/niconico_anime.html", datas)
   scrape_youtube_playlist("./data/html/youtube/lovelive-sunshine2.html", datas)
 end

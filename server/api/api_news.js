@@ -5,12 +5,13 @@ exports.middleware = function () {
   router.get('/api/news', async (req, res) => {
     const category = req.query.category;
     let items = [];
-    if (category.startsWith('SIGGRAPH')) {
+    /* if (category.startsWith('SIGGRAPH')) {
       const json = fs.readFileSync('./datas/' + category + '.json', "utf-8");
       const papers = JSON.parse(json);
       items = items.concat(papers)
     }
-    else if (category.startsWith('comic')) {
+    else */
+    if (category.startsWith('comic')) {
       const json = fs.readFileSync('./datas/items-comic.json', "utf-8");
       const papers = JSON.parse(json);
       items = items.concat(papers)
