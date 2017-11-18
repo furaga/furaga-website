@@ -12,5 +12,4 @@ npm-debug.log
 
 download.tar
 datas/*.json
-tools/ruby/data/html/amazon/prime_video/prime_anime.html
-tools/ruby/data/html/niconico/niconico_anime.html
+tools/ruby/data/*
