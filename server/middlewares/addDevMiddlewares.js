@@ -27,6 +27,10 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   const outputPath = path.resolve(process.cwd(), 'build');
   app.use(publicPath, express.static(outputPath));
 
+  const publicImgPath = '/img';
+  const outputImgPath = path.resolve(process.cwd(), '/tools/ruby/data/img');
+  app.use(publicImgPath, express.static(outputImgPath));
+  
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
   const fs = middleware.fileSystem;
